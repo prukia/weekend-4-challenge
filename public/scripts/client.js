@@ -5,8 +5,9 @@ $(function(){
 
 
     $('#task-form').on('click', '#add', addTask);
-    $('#to-do').on('click', '.complete', updateTask);
+    $('#to-do').on('click', '.update', updateTask);
     $('#to-do').on('click', '.delete', deleteTask);
+    $('#to-do').on('click', '.complete', toggleTask);
 });
 
 function getTasks(){
@@ -25,12 +26,17 @@ function displayTasks(tasks){
       var $form = $('<form></form>');
       //needs to have name of column on DB not name on the DOM
   $form.append('<input type="text" name="task_input" value="' + task.task + '"/>');
-  $form.append('<input type="text" name="status" value="' + task.status + '"/>');
+  // $form.append('<input type="checkbox" name="status" value="' + task.status + '"/>');
 
 
-  var $completebutton= $('<button class="complete">Complete</button>');
-    $completebutton.data('id', task.id);
-    $form.append($completebutton);
+  var $updatebutton= $('<button class="update">Update</button>');
+    $updatebutton.data('id', task.id);
+    $form.append($updatebutton);
+
+    var $completebutton= $('<button class="complete">Complete</button>');
+      $completebutton.data('status', task.status);
+      $completebutton.data('id', task.id);
+      $form.append($completebutton);
 
     //delete button
   var $deletebutton=$('<button class="delete">Delete</button>');
@@ -50,6 +56,7 @@ function addTask(event){
 //get the infor out of the form
 //jQuery method to get info out of form
 var formData = $('#task-form').serialize();
+formData.status = false;
   console.log(formData);
 //send data to server
 $.ajax({
@@ -67,6 +74,7 @@ function updateTask(event){
   var $form = $button.closest('form');
 
   var data = $form.serialize();
+  console.log(data);
 
   $.ajax({
     url: '/tasks/' + $button.data('id'),
@@ -85,5 +93,31 @@ function deleteTask(event){
       type: 'DELETE',
       success: getTasks
     });
+
+}
+function toggleTask(event){
+  event.preventDefault();
+  var $button= $(this);
+  var $form = $button.closest('form');
+  var status = $(this).data('status');
+  var data = {};
+  console.log(data);
+
+  if (status == true){
+              data.status = false;
+             $(this).parent().parent().css('background-color', 'red');
+              $(this).data('status', false);
+        }else{
+          data.status = true;
+         $(this).parent().parent().css('background-color', 'green');
+         $(this).data('status', true);
+
+           }
+  $.ajax({
+    url: '/complete/' + $button.data('id'),
+    type: 'PUT',
+    data: data,
+    // success: getTasks
+  });
 
 }

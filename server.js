@@ -3,12 +3,14 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var tasks = require('./routes/tasks');
+var complete=require('./routes/complete')
 // var owners = require('./routes/owners');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.use('/tasks', tasks);
+app.use('/complete', complete);
 // app.use('/owners', owners);
 
 // serve the index page at /
