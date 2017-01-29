@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../vendors/jquery.min.js"></script>
+    <script src="../scripts/client.js"></script>
+    <link href="" rel="stylesheet">
+    <link rel="stylesheet" href="../vendors/bootstrap.min.css" />
+    <link rel="stylesheet" href="../styles/styles.css"  />
+    <title>Task App</title>
+  </head>
+  <body>
+    <header>
+      <h1>Upsilion Task App</h1>
+    </header>
+
+    <main class="container-fluid">
+
+      <div class="container form-section">
+        <h2>To-Do List:</h2>
+        <div class="row">
+          <form id="task-form" class="form-inline col-xs-6">
+            <div class="form-group">
+              <!-- <label for="task">Task:</label> -->
+              <input type="text" id="task_input" name="task_input" class="form-control" />
+              <input type="text" id="status" name="status" class="form-control" />
+              <!-- <input type="checkbox" id="status" name="status" class="form-control" /> -->
+            </div>
+            <div>
+              <button id="add" class="btn btn-outline-primary">Add:</button>
+            </div>
+          </form>
+
+
+        <h2>To-Do</h2>
+      <ul id="to-do">
+
+      </ul>
+    </main>
+  </body>
+</html>

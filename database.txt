@@ -1,0 +1,23 @@
+TODO
+
+1. Create a database
+--store task
+--updates of task status
+--3 columns ID, Task, Status(which is a boolean)
+  boolean is a data-type in SQL
+
+--when something is complete you should still be able to delete.
+
+2. Server side:
+requests for
+--getting tasks
+--creating tasks
+--updating tasks
+--deleting tasks
+
+
+
+3.Client side:
+--create a task
+--refresh and append all tasks
+--when task complete (change __)
