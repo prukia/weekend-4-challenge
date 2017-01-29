@@ -69,4 +69,50 @@ router.post('/', function(req, res){
   });
 });
 
+router.put('/:id', function (req,res){
+  pool.connect(function (err, client, done){
+    if(err){
+      console.log('Error connecting to DB', err);
+      res.sendStatus(500);
+      done();
+    }else{
+      client.query('UPDATE tasks SET task=$2, status=$3 WHERE id = $1 RETURNING *',
+      [req.params.id,req.body.task_input, req.body.status],
+      function(err, result){
+        done();
+        if(err){
+          console.log('Erroe updating book', err);
+          res.sendStatus(500);
+        }else{
+          res.send(result.rows);
+        }
+      });
+
+    }
+  });
+
+})
+
+router.delete('/:id', function(req, res){
+  pool.connect(function(err, client, done){
+    if (err) {
+      console.log('Error connecting to DB', err);
+      res.sendStatus(500);
+      done();
+    } else {
+      client.query('DELETE FROM tasks WHERE id = $1',
+                   [req.params.id],
+                   function(err, result){
+                     done();
+                     if (err) {
+                       console.log('Error deleting pet', err);
+                       res.sendStatus(500);
+                     } else {
+                       res.sendStatus(204);
+                     }
+                   });
+    }
+  });
+});
+
 module.exports = router;

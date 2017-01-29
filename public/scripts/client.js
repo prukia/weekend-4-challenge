@@ -5,7 +5,8 @@ $(function(){
 
 
     $('#task-form').on('click', '#add', addTask);
-
+    $('#to-do').on('click', '.complete', updateTask);
+    $('#to-do').on('click', '.delete', deleteTask);
 });
 
 function getTasks(){
@@ -18,13 +19,23 @@ function getTasks(){
 function displayTasks(tasks){
   console.log('Got tasks from the server', tasks);
 
-  $('to-do').empty();
+  $('#to-do').empty();
   tasks.forEach(function(task){
       var $li = $('<li></li>');
       var $form = $('<form></form>');
       //needs to have name of column on DB not name on the DOM
   $form.append('<input type="text" name="task_input" value="' + task.task + '"/>');
   $form.append('<input type="text" name="status" value="' + task.status + '"/>');
+
+
+  var $completebutton= $('<button class="complete">Complete</button>');
+    $completebutton.data('id', task.id);
+    $form.append($completebutton);
+
+    //delete button
+  var $deletebutton=$('<button class="delete">Delete</button>');
+   $deletebutton.data('id', task.id);
+   $form.append($deletebutton);
 
 
   $li.append($form);
@@ -47,5 +58,32 @@ $.ajax({
   data: formData,
   success: getTasks
 })
+
+}
+
+function updateTask(event){
+  event.preventDefault();
+  var $button= $(this);
+  var $form = $button.closest('form');
+
+  var data = $form.serialize();
+
+  $.ajax({
+    url: '/tasks/' + $button.data('id'),
+    type: 'PUT',
+    data: data,
+    success: getTasks
+  });
+
+}
+
+function deleteTask(event){
+    event.preventDefault();
+    //$(this) refers to a delete button that was clicked on
+    $.ajax({
+      url: '/tasks/' + $(this).data('id'),
+      type: 'DELETE',
+      success: getTasks
+    });
 
 }
