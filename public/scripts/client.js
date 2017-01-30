@@ -87,13 +87,17 @@ function updateTask(event){
 
 function deleteTask(event){
     event.preventDefault();
-  confirm("Are you sure you want to deleteTask");
+    if(confirm("Are you sure you want to delete this task")){
+      $.ajax({
+        url: '/tasks/' + $(this).data('id'),
+        type: 'DELETE',
+        success: getTasks
+      });
 
-    $.ajax({
-      url: '/tasks/' + $(this).data('id'),
-      type: 'DELETE',
-      success: getTasks
-    });
+
+    };
+
+
 
 }
 function toggleTask(event){
