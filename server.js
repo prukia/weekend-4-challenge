@@ -11,7 +11,6 @@ app.use(express.static('public'));
 
 app.use('/tasks', tasks);
 app.use('/complete', complete);
-// app.use('/owners', owners);
 
 // serve the index page at /
 app.get('/', function (req, res) {
