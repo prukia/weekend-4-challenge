@@ -87,7 +87,8 @@ function updateTask(event){
 
 function deleteTask(event){
     event.preventDefault();
-    //$(this) refers to a delete button that was clicked on
+  prompt("Are you sure you want to deleteTask");
+
     $.ajax({
       url: '/tasks/' + $(this).data('id'),
       type: 'DELETE',
