@@ -29,17 +29,17 @@ function displayTasks(tasks){
   // $form.append('<input type="checkbox" name="status" value="' + task.status + '"/>');
 
 
-  var $updatebutton= $('<button class="update">Update</button>');
+  var $updatebutton= $('<button class="update btn btn-outline-warning">Update</button>');
     $updatebutton.data('id', task.id);
     $form.append($updatebutton);
 
-    var $completebutton= $('<button class="complete">Complete</button>');
+    var $completebutton= $('<button class="complete btn btn-outline-primary">Complete</button>');
       $completebutton.data('status', task.status);
       $completebutton.data('id', task.id);
       $form.append($completebutton);
 
     //delete button
-  var $deletebutton=$('<button class="delete">Delete</button>');
+  var $deletebutton=$('<button class="delete btn btn-outline-danger">Delete</button>');
    $deletebutton.data('id', task.id);
    $form.append($deletebutton);
 
@@ -87,7 +87,7 @@ function updateTask(event){
 
 function deleteTask(event){
     event.preventDefault();
-  prompt("Are you sure you want to deleteTask");
+  confirm("Are you sure you want to deleteTask");
 
     $.ajax({
       url: '/tasks/' + $(this).data('id'),
