@@ -81,7 +81,7 @@ router.put('/:id', function (req,res){
       function(err, result){
         done();
         if(err){
-          console.log('Erroe updating book', err);
+          console.log('Error updating task', err);
           res.sendStatus(500);
         }else{
           res.send(result.rows);
@@ -105,7 +105,7 @@ router.delete('/:id', function(req, res){
                    function(err, result){
                      done();
                      if (err) {
-                       console.log('Error deleting pet', err);
+                       console.log('Error deleting task', err);
                        res.sendStatus(500);
                      } else {
                        res.sendStatus(204);

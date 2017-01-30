@@ -20,7 +20,7 @@ router.put('/:id', function (req,res){
       function(err, result){
         done();
         if(err){
-          console.log('Erroe updating book', err);
+          console.log('Error updating tasks', err);
           res.sendStatus(500);
         }else{
           res.send(result.rows);
