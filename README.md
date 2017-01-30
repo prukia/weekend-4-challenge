@@ -5,6 +5,7 @@
 
 ###Full-Stack App Created
 Used:
--server Node Express
--SQL database
--JQuery and JS
+* server Node Express
+* SQL database
+* JQuery and JS
+* bootstrap for basic styling
